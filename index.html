@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cube - مصمم رقمي إبداعي</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+            direction: rtl;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 15px 50px;
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: #00d4ff;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: #00d4ff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #00d4ff;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+        }
+
+        .floating-cubes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .cube {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, rgba(0, 212, 255, 0.1), rgba(0, 153, 204, 0.2));
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            animation: float 6s ease-in-out infinite;
+            transform-style: preserve-3d;
+        }
+
+        .cube:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .cube:nth-child(2) { top: 20%; right: 10%; animation-delay: 1s; }
+        .cube:nth-child(3) { bottom: 20%; left: 20%; animation-delay: 2s; }
+        .cube:nth-child(4) { bottom: 10%; right: 20%; animation-delay: 3s; }
+        .cube:nth-child(5) { top: 50%; left: 5%; animation-delay: 4s; }
+        .cube:nth-child(6) { top: 30%; right: 5%; animation-delay: 5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); }
+            50% { transform: translateY(-20px) rotateX(180deg) rotateY(180deg); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 8rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 3s ease-in-out infinite alternate;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.3)); }
+            to { filter: drop-shadow(0 0 40px rgba(0, 212, 255, 0.6)); }
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: #b0b0b0;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease 0.7s both;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Styling */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 50px;
+        }
+
+        h2 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, #ffffff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        /* About Section */
+        .about {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #b0b0b0;
+        }
+
+        .about-text h3 {
+            color: #00d4ff;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .skill-tag {
+            padding: 10px 20px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 25px;
+            color: #00d4ff;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.2);
+        }
+
+        .about-visual {
+            position: relative;
+            height: 400px;
+            background: linear-gradient(45deg, rgba(0, 212, 255, 0.1), rgba(0, 153, 204, 0.1));
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rotating-cube {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotateCube 10s infinite linear;
+        }
+
+        .rotating-cube .face {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, rgba(0, 212, 255, 0.2), rgba(0, 153, 204, 0.3));
+            border: 2px solid #00d4ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #00d4ff;
+        }
+
+        .rotating-cube .face:nth-child(1) { transform: rotateY(0deg) translateZ(75px); }
+        .rotating-cube .face:nth-child(2) { transform: rotateY(90deg) translateZ(75px); }
+        .rotating-cube .face:nth-child(3) { transform: rotateY(180deg) translateZ(75px); }
+        .rotating-cube .face:nth-child(4) { transform: rotateY(-90deg) translateZ(75px); }
+        .rotating-cube .face:nth-child(5) { transform: rotateX(90deg) translateZ(75px); }
+        .rotating-cube .face:nth-child(6) { transform: rotateX(-90deg) translateZ(75px); }
+
+        @keyframes rotateCube {
+            0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+            100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+        }
+
+        /* Services Section */
+        .services {
+            background: #0a0a0a;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: #00d4ff;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: #0a0a0a;
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .pricing-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .pricing h2 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #ffffff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .pricing-description {
+            font-size: 1.3rem;
+            color: #b0b0b0;
+            margin-bottom: 60px;
+            line-height: 1.8;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pricing-gallery {
+            display: flex;
+            justify-content: center;
+            margin-top: 60px;
+        }
+
+        .pricing-item {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 25px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .pricing-item:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 
+                0 25px 60px rgba(0, 212, 255, 0.4),
+                0 0 50px rgba(0, 212, 255, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border-color: rgba(0, 212, 255, 0.6);
+        }
+
+        .pricing-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg, 
+                rgba(0, 212, 255, 0.15), 
+                rgba(0, 153, 204, 0.15),
+                rgba(0, 212, 255, 0.05)
+            );
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .pricing-item:hover::before {
+            opacity: 1;
+        }
+
+        .pricing-item::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00d4ff, #0099cc, #00d4ff);
+            border-radius: 25px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .pricing-item:hover::after {
+            opacity: 1;
+            animation: borderGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes borderGlow {
+            0% { 
+                box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            }
+            100% { 
+                box-shadow: 0 0 40px rgba(0, 212, 255, 0.8);
+            }
+        }
+
+        .pricing-content-inner {
+            position: relative;
+            z-index: 2;
+        }
+
+        .pricing-item h3 {
+            font-size: 2.2rem;
+            color: #00d4ff;
+            margin-bottom: 20px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .pricing-item:hover h3 {
+            transform: scale(1.1);
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.8);
+        }
+
+        .pricing-item p {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            transition: color 0.3s ease;
+        }
+
+        .pricing-item:hover p {
+            color: #e0e0e0;
+        }
+
+        .pricing-highlight {
+            display: inline-block;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            color: #ffffff;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-highlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .pricing-item:hover .pricing-highlight {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.5);
+        }
+
+        .pricing-item:hover .pricing-highlight::before {
+            left: 100%;
+        }
+
+        /* Latest Work Section */
+        .latest-work {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%);
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .latest-work-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .latest-work h2 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #ffffff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .latest-work p {
+            font-size: 1.3rem;
+            color: #b0b0b0;
+            margin-bottom: 50px;
+            line-height: 1.8;
+        }
+
+        .instagram-btn {
+            display: inline-block;
+            padding: 20px 50px;
+            background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(131, 58, 180, 0.3);
+        }
+
+        .instagram-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .instagram-btn:hover::before {
+            left: 100%;
+        }
+
+        .instagram-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(131, 58, 180, 0.5);
+        }
+
+        .instagram-btn .icon {
+            display: inline-block;
+            margin-left: 15px;
+            font-size: 1.4rem;
+            vertical-align: middle;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: #0a0a0a;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .contact-form {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #00d4ff;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+        }
+
+        .contact-info {
+            padding-top: 40px;
+        }
+
+        .contact-info h3 {
+            color: #00d4ff;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+        }
+
+        .contact-info p {
+            color: #b0b0b0;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 15px;
+            color: #00d4ff;
+            font-size: 24px;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .social-link:hover::before {
+            opacity: 1;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+            color: #ffffff;
+        }
+
+        .social-link span {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            margin-top: 0;
+        }
+
+        footer p {
+            color: #666666;
+            font-size: 14px;
+        }
+
+        /* Mobile Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #00d4ff;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 80%;
+                background: rgba(10, 10, 10, 0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: right 0.3s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hero h1 {
+                font-size: 4rem;
+                letter-spacing: 3px;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            h2 {
+                font-size: 2.5rem;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+
+            nav {
+                padding: 15px 20px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">CUBE</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#about">نبذة عني</a></li>
+                <li><a href="#services">الخدمات</a></li>
+                <li><a href="#pricing">الأسعار والعروض</a></li>
+                <li><a href="#latest-work">آخر أعمالي</a></li>
+                <li><a href="#contact">تواصل معي</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-background">
+            <div class="floating-cubes">
+                <div class="cube"></div>
+                <div class="cube"></div>
+                <div class="cube"></div>
+                <div class="cube"></div>
+                <div class="cube"></div>
+                <div class="cube"></div>
+            </div>
+        </div>
+        <div class="hero-content">
+            <h1>CUBE</h1>
+            <p>منتج ومبتكر للفن بطابع وأسلوب مختلف</p>
+            <a href="#contact" class="cta-button">تواصل معي</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about fade-in" id="about">
+        <div class="container">
+            <h2>نبذة عني</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>منتج ومبتكر للفن الرقمي بأسلوب مختلف</h3>
+                    <p>أنا CubeØ، منتج ومبتكر للفن بطابع وأسلوب مختلف. متخصص في الموشن جرافيك، التصميم ثلاثي الأبعاد وإنتاج المحتوى الإبداعي. مع سنوات من الخبرة في المجال الرقمي، أساعد العلامات التجارية والمبدعين في سرد قصصهم من خلال المحتوى المرئي المذهل والجذاب.</p>
+                    
+                    <p>أسلوبي الفني يتميز بالتفرد والإبداع، حيث أدمج بين التقنيات الحديثة والرؤية الفنية المبتكرة لإنتاج أعمال استثنائية. خبرتي تمتد عبر منصات ووسائل متعددة، من الرندر السينمائي ثلاثي الأبعاد في بلندر إلى الموشن جرافيك الديناميكي والمونتاج الاحترافي لليوتيوب، إنستجرام، وتيك توك. أؤمن بقوة السرد البصري وأسعى لإنشاء محتوى لا يبدو مذهلاً فحسب، بل يحمل بصمة فنية مختلفة ومميزة.</p>
+                    
+                    <div class="skills">
+                        <span class="skill-tag">فن رقمي مبتكر</span>
+                        <span class="skill-tag">تصميم ثلاثي الأبعاد سينمائي</span>
+                        <span class="skill-tag">الموشن جرافيك</span>
+                        <span class="skill-tag">إنتاج مقاطع فيديو</span>
+                        <span class="skill-tag">إنتاج مشاريع كبيرة</span>
+                        <span class="skill-tag">إنتاج مقاطع قصيرة - ريلز و تيك توك</span>
+                        <span class="skill-tag">المؤثرات البصرية</span>
+                        <span class="skill-tag">الإبداع بأسلوب مختلف</span>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="rotating-cube">
+                        <div class="face">ART</div>
+                        <div class="face">VFX</div>
+                        <div class="face">EDIT</div>
+                        <div class="face">CUBE</div>
+                        <div class="face">CREATE</div>
+                        <div class="face">UNIQUE</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services fade-in" id="services">
+        <div class="container">
+            <h2>الخدمات</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <span class="service-icon">🎨</span>
+                    <h3>خبرة في منصات السوشل ميديا</h3>
+                    <p>إبداع فني رقمي بطابع مميز ورؤية فنية مختلفة تجمع بين التقنيات الحديثة والإبداع التقليدي. أقدم أعمال فنية استثنائية تحمل بصمتي الإبداعية الفريدة.</p>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">🎯</span>
+                    <h3>تصميم ثلاثي الأبعاد سينمائي</h3>
+                    <p>نمذجة وعرض وأنيميشن ثلاثية الأبعاد احترافية باستخدام Blender بأسلوب فني مبتكر. من تصور المنتجات إلى القطع الفنية المجردة، أنشئ محتوى ثلاثي الأبعاد مذهل يأسر ويشد الانتباه.</p>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">✨</span>
+                    <h3>الموشن جرافيك</h3>
+                    <p>موشن جرافيك ديناميكي ومؤثرات بصرية تحيي علامتك التجارية. مثالي للشعارات والمقدمات والانتقالات والمحتوى الترويجي الذي يجذب الانتباه.</p>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">🎬</span>
+                    <h3>إنتاج مقاطع فيديو</h3>
+                    <p>إنتاج فيديوهات يوتيوب متكامل من المونتاج إلى الصور المصغرة. أساعد المبدعين في إنتاج محتوى جذاب ينمي جمهورهم ويزيد من معدل المشاهدة.</p>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">📱</span>
+                    <h3>إنتاج مقاطع قصيرة - ريلز و تيك توك</h3>
+                    <p>إنتاج محتوى مخصص للمقاطع القصيرة في إنستجرام وتيك توك. من الفيديوهات القصيرة إلى منشورات الكاروسيل، أنشئ محتوى محسن لجمهور كل منصة الفريد.</p>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">🎯</span>
+                    <h3>إنتاج مشاريع كبيرة</h3>
+                    <p>إدارة وإنتاج المشاريع الضخمة والمعقدة من البداية حتى النهاية. خبرة في التعامل مع المشاريع متعددة المراحل والفرق الكبيرة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing fade-in" id="pricing">
+        <div class="container">
+            <div class="pricing-content">
+                <h2>الأسعار والعروض</h2>
+                <p class="pricing-description">
+                    اكتشف باقاتي المتنوعة للإنتاج الإبداعي والمونتاج الاحترافي. من الموشن جرافيك إلى الفيديوهات الطويلة والقصيرة، 
+                    أقدم لك خدمات متكاملة بأسعار تنافسية تناسب احتياجاتك ومشروعك.
+                </p>
+                
+                <div class="pricing-gallery">
+                    <div class="pricing-item" onclick="goToPricingPage()">
+                        <div class="pricing-content-inner">
+                            <h3>قائمة الأسعار الكاملة</h3>
+                            <p>الأسعار الفردية • أسعار الباكجات</p>
+                            <span class="pricing-highlight">اضغط للمشاهدة</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Page (Hidden by default) -->
+    <div id="pricingPage" style="display: none;">
+        <!-- Pricing Page Navigation -->
+        <nav style="background: rgba(10, 10, 10, 0.95); position: fixed; top: 0; width: 100%; z-index: 1001;">
+            <div class="nav-container">
+                <div class="logo" onclick="goBackToHome()" style="cursor: pointer;">CUBE</div>
+                <button onclick="goBackToHome()" style="background: linear-gradient(135deg, #00d4ff, #0099cc); color: white; border: none; padding: 10px 25px; border-radius: 25px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                    العودة للرئيسية
+                </button>
+            </div>
+        </nav>
+
+        <!-- Full Pricing Content -->
+        <div style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%); min-height: 100vh; padding-top: 100px;">
+            <div class="container" style="max-width: 600px; margin: 0 auto; padding: 20px;">
+                <!-- Hero Section -->
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <h1 style="font-size: 3rem; font-weight: 800; margin-bottom: 20px; background: linear-gradient(135deg, #ffffff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                        قائمة الأسعار الكاملة (بالدولار الأمريكي)
+                    </h1>
+                    <p style="font-size: 1.2rem; color: #b0b0b0; margin-bottom: 30px;">
+                    </p>
+                </div>
+
+                <!-- Pricing Sections -->
+                <div style="display: flex; flex-direction: column; gap: 40px;">
+                    
+                    <!-- Long Video Editing -->
+                    <div style="background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 30px; border-radius: 20px; border: 1px solid rgba(0, 212, 255, 0.3);">
+                        <h2 style="color: #00d4ff; text-align: center; font-size: 2rem; margin-bottom: 30px; text-transform: uppercase;">
+                            مونتاج مقطع طويل
+                        </h2>
+                        
+                        <!-- Basic Package -->
+                        <div style="background: rgba(0, 0, 0, 0.3); padding: 20px; border-radius: 15px; margin-bottom: 20px; border-left: 4px solid #00d4ff;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                <h3 style="color: #ffffff; font-size: 1.3rem;">مونتاج مقطع طويل</h3>
+                                <span style="background: linear-gradient(135deg, #00d4ff, #0099cc); color: white; padding: 8px 20px; border-radius: 20px; font-weight: bold;">$25 - $150</span>
+                            </div>
+                            <p style="color: #b0b0b0; margin: 0; line-height: 1.6;">
+                                قص واختصار المقاطع لاستخراج الأجزاء المهمة • ترتيب اللقطات لضمان تسلسل منطقي وسلس • انتقاء المحتوى بعناية بما يخدم الفكرة والرسالة • مطابقة الصوت مع الفيديو بشكل متقن • إضافة موشن جرافيك لزيادة التفاعل والوضوح • مزامنة اللقطات من عدة كاميرات مع الصوت • تبسيط المحتوى ليكون مناسباً لعامة الجمهور
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Video Editing Packages -->
+                    <div style="background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 30px; border-radius: 20px; border: 1px solid rgba(0, 212, 255, 0.3);">
+                        <h2 style="color: #00d4ff; text-align: center; font-size: 2rem; margin-bottom: 30px; text-transform: uppercase;">
+                            مونتاج الريلز
+                        </h2>
+                        
+                        <!-- Reels Basic -->
+                        <div style="background: rgba(0, 0, 0, 0.3); padding: 20px; border-radius: 15px; margin-bottom: 20px; border-left: 4px solid #00d4ff;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                <h3 style="color: #ffffff; font-size: 1.3rem;">مونتاج أساسي</h3>
+                                <span style="background: linear-gradient(135deg, #00d4ff, #0099cc); color: white; padding: 8px 20px; border-radius: 20px; font-weight: bold;">$10 - $40</span>
+                            </div>
+                            <p style="color: #b0b0b0; margin: 0; line-height: 1.6;">
+                                اختيار المحتوى الرائج بما يتماشى مع اتجاهات منصات التواصل الاجتماعي • تصميم المقاطع القصيرة بطريقة تجذب الجمهور وتزيد من فرص الانتشار • إبراز الهوية النمطية لصانع المحتوى لشد المتابعين المهتمين بمجاله
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 3D Graphics -->
+                    <div style="background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 30px; border-radius: 20px; border: 1px solid rgba(0, 212, 255, 0.3);">
+                        <h2 style="color: #00d4ff; text-align: center; font-size: 2rem; margin-bottom: 30px; text-transform: uppercase;">
+                            مونتاج ثلاثي الأبعاد
+                        </h2>
+                        
+                        <div style="background: rgba(0, 0, 0, 0.3); padding: 20px; border-radius: 15px; margin-bottom: 20px; border-left: 4px solid #9b59b6;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                <h3 style="color: #ffffff; font-size: 1.3rem;">تصميم ثلاثي الأبعاد</h3>
+                                <span style="background: linear-gradient(135deg, #9b59b6, #8e44ad); color: white; padding: 8px 20px; border-radius: 20px; font-weight: bold;">$50 - $500</span>
+                            </div>
+                            <p style="color: #b0b0b0; margin: 0; line-height: 1.6;">
+                                إنتاج مقاطع ثلاثية الأبعاد (3D) بأسلوب يدعم القصة والمحتوى، ليُقدَّم بشكل واقعي وملموس يترك أثراً أعمق في قلب المشاهد
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Packages Section -->
+                    <div style="background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 30px; border-radius: 20px; border: 1px solid rgba(0, 212, 255, 0.3);">
+                        <h2 style="color: #00d4ff; text-align: center; font-size: 2rem; margin-bottom: 30px; text-transform: uppercase;">
+                            قائمة أسعار الباكجات (بالدولار الأمريكي)
+                        </h2>
+                        
+                        <!-- First Package -->
+                        <div style="background: rgba(255, 215, 0, 0.15); padding: 25px; border-radius: 15px; margin-bottom: 20px; border: 2px solid #ffd700; box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);">
+                            <div style="text-align: center; margin-bottom: 15px;">
+                                <h3 style="color: #ffd700; font-size: 1.5rem; margin-bottom: 10px; text-shadow: 0 2px 10px rgba(255, 215, 0, 0.6);">الباكج الأول</h3>
+                                <div style="background: linear-gradient(135deg, #ffd700, #ffb347); color: black; padding: 10px 25px; border-radius: 25px; font-weight: bold; display: inline-block; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);">$90</div>
+                            </div>
+                            <div style="color: #b0b0b0; text-align: center; line-height: 1.6;">
+                                <p>2 مقاطع طويلة • 4 مقاطع قصير (ريلز/ تيك توك/ شورتس)</p>
+                                <p>مناسبة لـ صنّاع المحتوى الذين ينشرون بشكل متقطع (حد أقصى مقطعين في الشهر). باقة بسيطة بسعر مناسب.</p>
+                            </div>
+                        </div>
+
+                        <!-- Second Package -->
+                        <div style="background: rgba(192, 192, 192, 0.15); padding: 25px; border-radius: 15px; margin-bottom: 20px; border: 2px solid #c0c0c0; box-shadow: 0 5px 20px rgba(192, 192, 192, 0.2);">
+                            <div style="text-align: center; margin-bottom: 15px;">
+                                <h3 style="color: #c0c0c0; font-size: 1.5rem; margin-bottom: 10px; text-shadow: 0 2px 10px rgba(192, 192, 192, 0.5);">الباكج الثاني</h3>
+                                <div style="background: linear-gradient(135deg, #c0c0c0, #a8a8a8); color: black; padding: 10px 25px; border-radius: 25px; font-weight: bold; display: inline-block; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(192, 192, 192, 0.4);">$170</div>
+                            </div>
+                            <div style="color: #b0b0b0; text-align: center; line-height: 1.6;">
+                                <p>4 مقاطع طويلة • 8 مقاطع قصيرة (ريلز/ تيك توك/ شورتس)</p>
+                                <p>مناسبة لـ صنّاع المحتوى المستمرين في نشر المحتوى على المنصات بخطة واضحة و ثابته مقطع اسبوعي في اليوتيوب و مقطعين قصيرة (إنستقرام / تيك توك) لزيادة تفاعل حسابات السوشل ميديا</p>
+                            </div>
+                        </div>
+
+                        <!-- Third Package -->
+                        <div style="background: rgba(229, 228, 226, 0.1); padding: 25px; border-radius: 15px; margin-bottom: 20px; border: 2px solid #e5e4e2;">
+                            <div style="text-align: center; margin-bottom: 15px;">
+                                <h3 style="color: #e5e4e2; font-size: 1.5rem; margin-bottom: 10px;">الباكج الثالث</h3>
+                                <div style="background: linear-gradient(135deg, #e5e4e2, #d3d3d3); color: black; padding: 10px 25px; border-radius: 25px; font-weight: bold; display: inline-block; font-size: 1.2rem;">$370</div>
+                            </div>
+                            <div style="color: #b0b0b0; text-align: center; line-height: 1.6;">
+                                <p>8 مقاطع طويلة • 25 مقاطع قصيرة (ريلز/ تيك توك/ شورتس)</p>
+                                <p>مناسبة لـ صنّاع المحتوى المهتمين في التواجد بشكل دائم و ثابت على كل المنصات (يوتيوب / إنستقرام / تيك توك) و نتائج الالتزام عادة ما تكون خرافية</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Note Section -->
+                    <div style="background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 30px; border-radius: 20px; border: 1px solid rgba(255, 193, 7, 0.3); margin-bottom: 40px;">
+                        <h2 style="color: #ffc107; text-align: center; font-size: 2rem; margin-bottom: 30px; text-transform: uppercase;">
+                            ملحوظة
+                        </h2>
+                        
+                        <div style="background: rgba(255, 193, 7, 0.1); padding: 25px; border-radius: 15px; border-right: 4px solid #ffc107;">
+                            <div style="color: #e0e0e0; text-align: center; line-height: 1.8; font-size: 1.1rem;">
+                                <p style="margin-bottom: 15px;">• جميع الأسعار قابلة للتعديل وفقاً لطبيعة المشروع واحتياجاته.</p>
+                                <p style="margin-bottom: 15px;">• الأسعار المذكورة مرنة، وتُحدد بدقة حسب حجم العمل ومتطلباته.</p>
+                                <p style="margin-bottom: 0;">• يمكن مناقشة الأسعار بما يتناسب مع تفاصيل المشروع واحتياجات العميل.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Section -->
+                    <div style="background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 30px; border-radius: 20px; border: 1px solid rgba(0, 212, 255, 0.3); text-align: center;">
+                        <h2 style="color: #00d4ff; font-size: 2rem; margin-bottom: 20px;">
+                            CUBE
+                        </h2>
+                        <p style="color: #b0b0b0; margin-bottom: 30px; line-height: 1.8;">
+                            نحن فريق احترافي في عالم البصرية والهوية التجارية<br>
+                            نقدم خدمات متكاملة في التصميم والإنتاج<br>
+                            للحصول على عمل مميز ومبدع<br>
+                            <strong style="color: #00d4ff;">"تميز بأفكارك واترك انطباعاً مختلفاً"</strong>
+                        </p>
+                        
+                        <div style="margin-bottom: 30px;">
+                            <h3 style="color: #00d4ff; margin-bottom: 15px;">تواصل معنا الان</h3>
+                            <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                                <a href="https://www.youtube.com/@cube_edter" style="color: #ff0000; font-size: 24px; text-decoration: none;">📺 @cube_edter</a>
+                                <a href="https://www.instagram.com/cube_edter" style="color: #e1306c; font-size: 24px; text-decoration: none;">📷 @cube_edter</a>
+                                <a href="https://x.com/cube_edter" style="color: #1da1f2; font-size: 24px; text-decoration: none;">✖️ @cube_edter</a>
+                                <a href="https://www.tiktok.com/@cube_edter" style="color: #fe2c55; font-size: 24px; text-decoration: none;">🎵 @cube_edter</a>
+                            </div>
+                        </div>
+                        
+                        <p style="color: #666; font-size: 0.9rem; margin: 0;">
+                            تقدر تراسلنا على أي منصة عشان نبدأ مشروعك الجديد معنا
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Latest Work Section -->
+    <section class="latest-work fade-in" id="latest-work">
+        <div class="container">
+            <div class="latest-work-content">
+                <h2>آخر أعمالي</h2>
+                <p>للاطلاع على آخر أعمالي وإبداعاتي الفنية الجديدة، تابعني على إنستجرام حيث أنشر أحدث مشاريعي في التصميم ثلاثي الأبعاد والموشن جرافيك والمحتوى الإبداعي بأسلوبي المميز والمختلف.</p>
+                <a href="https://www.instagram.com/cube_edter" class="instagram-btn" target="_blank" rel="noopener">
+                    اضغط هنا
+                    <span class="icon">📷</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact fade-in" id="contact">
+        <div class="container">
+            <h2>لنعمل معاً</h2>
+            <div class="contact-content">
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">اسمك</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">البريد الإلكتروني</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="project">نوع المشروع</label>
+                        <input type="text" id="project" name="project" placeholder="مثلاً: أنيميشن ثلاثي الأبعاد، مونتاج يوتيوب، إلخ.">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">تفاصيل المشروع</label>
+                        <textarea id="message" name="message" placeholder="حدثني عن مشروعك..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">إرسال الرسالة</button>
+                </form>
+                
+                <div class="contact-info">
+                    <h3>تواصل مع cube</h3>
+                    <p>مستعد لتحويل رؤيتك و احلامك الى واقع حقيقي مختلف ؟! دعنا نناقش مشروعك و نبتكر شيء مميز سوياً دائما انا متحمس للعمل على اعمال جديدة و مختلفة.</p>
+                    
+                    <p>تابعني على وسائل التواصل الاجتماعي لترى أحدث إبداعاتي الفنية ومحتوى ما وراء الكواليس من عالم الإبداع الرقمي:</p>
+                    
+                    <div class="social-links">
+                        <a href="https://www.youtube.com/@cube_edter" class="social-link" target="_blank" rel="noopener">
+                            <span>▶️</span>
+                        </a>
+                        <a href="https://x.com/cube_edter" class="social-link" target="_blank" rel="noopener">
+                            <span>✖️</span>
+                        </a>
+                        <a href="https://www.tiktok.com/@cube_edter" class="social-link" target="_blank" rel="noopener">
+                            <span>🎵</span>
+                        </a>
+                        <a href="https://www.instagram.com/cube_edter" class="social-link" target="_blank" rel="noopener">
+                            <span>📷</span>
+                        </a>
+                        <a href="mailto:cubeedt@gmail.com" class="social-link">
+                            <span>✉️</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Cube. جميع الحقوق محفوظة لـ cube.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Function to go to pricing page
+        function goToPricingPage() {
+            // Hide main content
+            document.querySelector('nav').style.display = 'none';
+            document.querySelector('.hero').style.display = 'none';
+            document.querySelector('.about').style.display = 'none';
+            document.querySelector('.services').style.display = 'none';
+            document.querySelector('.pricing').style.display = 'none';
+            document.querySelector('.latest-work').style.display = 'none';
+            document.querySelector('.contact').style.display = 'none';
+            document.querySelector('footer').style.display = 'none';
+            
+            // Show pricing page
+            document.getElementById('pricingPage').style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Function to go back to home
+        function goBackToHome() {
+            // Hide pricing page
+            document.getElementById('pricingPage').style.display = 'none';
+            
+            // Show main content
+            document.querySelector('nav').style.display = 'block';
+            document.querySelector('.hero').style.display = 'flex';
+            document.querySelector('.about').style.display = 'block';
+            document.querySelector('.services').style.display = 'block';
+            document.querySelector('.pricing').style.display = 'block';
+            document.querySelector('.latest-work').style.display = 'block';
+            document.querySelector('.contact').style.display = 'block';
+            document.querySelector('footer').style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Contact form handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const project = formData.get('project');
+            const message = formData.get('message');
+            
+            // Create mailto link with form data
+            const subject = `استفسار مشروع جديد: ${project || 'استفسار عام'}`;
+            const body = `مرحباً Cube,
+
+أنا ${name} وأرغب في مناقشة مشروع معك.
+
+نوع المشروع: ${project || 'غير محدد'}
+البريد الإلكتروني: ${email}
+
+الرسالة:
+${message}
+
+أتطلع لسماع ردك!
+
+مع أطيب التحيات,
+${name}`;
+            
+            const mailtoLink = `mailto:cubeedt@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            // Try to open email client
+            const emailWindow = window.open(mailtoLink, '_blank');
+            
+            // If popup blocked or email client not available, copy to clipboard
+            if (!emailWindow) {
+                const emailText = `إلى: cubeedt@gmail.com
+الموضوع: ${subject}
+
+${body}`;
+                
+                navigator.clipboard.writeText(emailText).then(() => {
+                    showNotification('تم نسخ الرسالة للحافظة! يمكنك لصقها في أي تطبيق بريد إلكتروني.', 'success');
+                }).catch(() => {
+                    showNotification('يرجى إرسال رسالة إلى: cubeedt@gmail.com', 'info');
+                });
+            } else {
+                showNotification('تم إعداد الرسالة! سيتم فتح برنامج البريد الإلكتروني.', 'success');
+            }
+            
+            this.reset();
+        });
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#00d4ff' : '#ff4757'};
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                z-index: 10000;
+                animation: slideInLeft 0.5s ease, slideOutLeft 0.5s ease 3s forwards;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+                font-family: 'Cairo', sans-serif;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 4000);
+        }
+
+        // Add notification animations
+        const notificationStyle = document.createElement('style');
+        notificationStyle.textContent = `
+            @keyframes slideInLeft {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutLeft {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(notificationStyle);
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.floating-cubes');
+            if (parallax) {
+                parallax.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+        });
+
+        // Dynamic cube animation based on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const cubes = document.querySelectorAll('.cube');
+            cubes.forEach((cube, index) => {
+                const speed = 0.5 + (index * 0.1);
+                cube.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.1}deg)`;
+            });
+        });
+
+        // Add mouse movement effect to service cards
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                card.style.transform = `perspective(1000px) rotateY(${x / 20}deg) rotateX(${-y / 20}deg) translateZ(10px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) translateZ(0px)';
+            });
+        });
+
+        // Add glitch effect on logo hover
+        const logo = document.querySelector('.logo');
+        logo.addEventListener('mouseenter', () => {
+            logo.style.animation = 'glitch 0.5s ease-in-out';
+        });
+
+        logo.addEventListener('animationend', () => {
+            logo.style.animation = '';
+        });
+
+        // Add glitch animation
+        const glitchStyle = document.createElement('style');
+        glitchStyle.textContent = `
+            @keyframes glitch {
+                0%, 100% { transform: translate(0); }
+                20% { transform: translate(-2px, 2px); }
+                40% { transform: translate(-2px, -2px); }
+                60% { transform: translate(2px, 2px); }
+                80% { transform: translate(2px, -2px); }
+            }
+        `;
+        document.head.appendChild(glitchStyle);
+    </script>
+</body>
+</html>
+                
